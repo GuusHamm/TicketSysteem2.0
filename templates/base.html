@@ -1,0 +1,91 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticketsysteem</title>
+
+    <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material/material.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material/ripples.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material/roboto.css' %}">
+
+    <!-- JS -->
+    <script src="{% static 'js/material/material.min.js' %}"></script>
+    <script src="{% static 'js/material/ripples.min.js' %}"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $.material.init();
+        });
+    </script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'tickets:index' %}">Ticketsysteem</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    {#                    <a href="{% url "tickets:index" %}">Sharing</a>#}
+                    <a href="#">Maak een nieuwe ticket</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'account:logout' %}">Logout</a></li>
+                {% else %}
+                    {#                    <li><a href="{% url 'account:create' %}">Create account</a></li>#}
+                    <li><a href="#">Create account</a></li>
+                    <li><a href="{% url 'account:login' %}"><i class="fa fa-child"></i> Log in</a></li>
+                    {#                    <li><a href="#"><i class="fa fa-child"></i> Log in</a></li>#}
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="container">
+    {% if messages %}
+        <div class="row">
+            {% for message in messages %}
+                <div class="col-xs-12 alert alert-{{ message.tags }} alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+</body>
+</html>
