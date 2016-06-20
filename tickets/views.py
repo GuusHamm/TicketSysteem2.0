@@ -38,13 +38,13 @@ class NewTicketView(View):
 
             mail_body = 'Je hebt een ticket aangemaakt op het ticketsysteem \n' + \
                         ' bekijk de vooruitgang van je ticket op ' + '' \
-                                                                     'http://www.ticketsysteem.guushamm.tech/tickets/view/{}'.format(
+                                                                     'ticketsysteem.guushamm.tech/tickets/view/{}'.format(
                 ticket.id)
 
             email = EmailMessage('Ticket#{} aangemaakt'.format(ticket.id), mail_body, to=[request.user.email])
             email.send()
             messages.success(request, "Ticket succesvol aangemaakt")
-            return redirect()
+            return redirect("tickets:view", ticket_id=ticket.id)
         else:
             messages.warning(request, "Whoops het formulier is niet goed ingevuld")
         return redirect("tickets:index")
