@@ -8,7 +8,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         label="Gebruikersnaam",
         max_length=80,
-        required=True,
+        required=True
     )
 
     password = forms.CharField(
@@ -31,6 +31,6 @@ class LoginForm(forms.Form):
             Field("password"),
 
             FormActions(
-                Submit('log_in', 'Log In', css_class=" btn-primary btn-block"),
+                Submit('log_in', 'Log In', css_class=" btn-danger btn-block"),
             )
         )

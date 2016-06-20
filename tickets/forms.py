@@ -7,7 +7,7 @@ from tickets.models import SpecificItem
 
 
 class TicketForm(forms.Form):
-    description = forms.CharField(widget=forms.TextInput, max_length=255)
+    description = forms.CharField(widget=forms.Textarea(), max_length=255)
     item = forms.ModelChoiceField(queryset=SpecificItem.objects.all())
 
     def __init__(self, *args, **kwargs):
@@ -25,6 +25,6 @@ class TicketForm(forms.Form):
             Field("item"),
 
             FormActions(
-                Submit('post', 'Post', css_class=" btn-primary btn-block"),
+                Submit('post', 'Post', css_class=" btn-danger btn-block"),
             )
         )

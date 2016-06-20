@@ -20,6 +20,7 @@ class IndexView(View):
 class NewTicketView(View):
     context = {}
 
+    @method_decorator(login_required)
     def get(self, request):
         self.context["form"] = TicketForm()
 
