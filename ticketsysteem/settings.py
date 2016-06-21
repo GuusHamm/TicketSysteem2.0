@@ -142,9 +142,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MESSAGE_TAGS = {
     messages.DEBUG: 'info',
     messages.INFO: 'info',
-    messages.SUCCESS: 'success',
-    messages.WARNING: 'warning',
-    messages.ERROR: 'danger'
+    messages.SUCCESS: 'danger',
+    messages.WARNING: 'info',
+    messages.ERROR: 'warning'
 }
 
 EMAIL_USE_TLS = True

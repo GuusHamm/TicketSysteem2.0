@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if tickets %}
+    <script>
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
+    <div class="container">
+        <div class="panel">
+        <div class="panel-heading">
+            <h3 class="text-center text-uppercase">Mijn tickets</h3>
+        </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Gemaakt op</th>
+                        <th>Beschrijving</th>
+                        <th>Item</th>
+                        <th>Toegewezen</th>
+                        <th>Toegewezen op</th>
+                        <th>Toegewezen aan</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ticket in tickets %}
+                            <tr class="clickable-row" data-href="{% url 'tickets:view' ticket.id %}">
+                                <td>{{ ticket.id }}</td>
+                                <td>{{ ticket.created_at }}</td>
+                                <td>{{ ticket.description }}</td>
+                                <td>{{ ticket.item }}</td>
+                                <td>
+                                    {% if ticket.assigned %}
+                                        <i class="material-icons">check_box</i>
+                                    {% else %}
+                                        <i class="material-icons">check_box_outline_blank</i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if ticket.assignment_date != None %}
+                                        {{ ticket.assignment_date }}
+                                    {% else %}
+                                        -
+                                       {% endif %}
+                                </td>
+                                <td>
+                                    {% if ticket.assigned_to != None %}
+                                        {{ ticket.assigned_to.first_name }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="well">
+        <div class="text-uppercase text-center">
+            <h1>Je hebt nog geen tickets</h1>
+        </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -7,6 +7,11 @@ from tickets.models import SpecificItem
 
 
 class TicketForm(forms.Form):
+    ticket_types = (("PROBLEM", "Probleem oplossen"),
+                    ("INSTALLATION", 'Instalatie'),
+                    ("MAINTENANCE", 'Onderhoud'))
+
+    type = forms.ChoiceField(choices=ticket_types)
     description = forms.CharField(widget=forms.Textarea(), max_length=255)
     item = forms.ModelChoiceField(queryset=SpecificItem.objects.all())
 
@@ -21,6 +26,7 @@ class TicketForm(forms.Form):
         self.helper.field_class = 'col-lg-8'
 
         self.helper.layout = Layout(
+            Field("type"),
             Field("description"),
             Field("item"),
 

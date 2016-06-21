@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from tickets.views import IndexView
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include("accounts.urls", namespace="account")),
     url(r'^tickets/', include("tickets.urls", namespace="tickets")),
-    # url(r'^', include("tickets.urls", namespace="tickets")),
+    url(r'^$', IndexView.as_view(), name="index"),
 ]

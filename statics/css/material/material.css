@@ -52,8 +52,8 @@ Then, run this script to get the list.
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
 }
 [class^="mdi-"]:before,
 [class*="mdi-"]:before {
@@ -180,14 +180,14 @@ Then, run this script to get the list.
   animation: mdi-spin 2s infinite linear;
   -webkit-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
-      transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
 }
 .mdi-pulse {
   -webkit-animation: mdi-spin 1s steps(8) infinite;
   animation: mdi-spin 1s steps(8) infinite;
   -webkit-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
-      transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
 }
 @-webkit-keyframes mdi-spin {
   0% {
@@ -245,7 +245,7 @@ Then, run this script to get the list.
 :root .mdi-flip-horizontal,
 :root .mdi-flip-vertical {
   -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 .mdi-stack {
   position: relative;
@@ -3858,7 +3858,7 @@ body .jumbotron-material-blue-grey,
 }
 .checkbox {
   -webkit-transform: translateZ(0);
-          transform: translateZ(0);
+  transform: translateZ(0);
 }
 .checkbox label {
   cursor: pointer;
@@ -3893,7 +3893,7 @@ body .jumbotron-material-blue-grey,
   opacity: 0;
   margin: 0;
   -webkit-transform: scale3d(2.3, 2.3, 1);
-          transform: scale3d(2.3, 2.3, 1);
+  transform: scale3d(2.3, 2.3, 1);
 }
 .checkbox .checkbox-material .check {
   position: relative;
@@ -3909,22 +3909,22 @@ body .jumbotron-material-blue-grey,
   position: absolute;
   content: "";
   -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
   display: block;
   margin-top: -4px;
   margin-left: 6px;
   width: 0;
   height: 0;
   box-shadow: 0 0 0 0,
-        0 0 0 0,
-        0 0 0 0,
-        0 0 0 0,
-        0 0 0 0,
-        0 0 0 0,
-        0 0 0 0 inset;
+  0 0 0 0,
+  0 0 0 0,
+  0 0 0 0,
+  0 0 0 0,
+  0 0 0 0,
+  0 0 0 0 inset;
   -webkit-animation: checkbox-off 0.3s forwards;
-          animation: checkbox-off 0.3s forwards;
+  animation: checkbox-off 0.3s forwards;
 }
 .checkbox input[type=checkbox]:focus + .checkbox-material .check:after {
   opacity: 0.2;
@@ -3932,23 +3932,23 @@ body .jumbotron-material-blue-grey,
 .checkbox input[type=checkbox]:checked + .checkbox-material .check:before {
   box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px;
   -webkit-animation: checkbox-on 0.3s forwards;
-          animation: checkbox-on 0.3s forwards;
+  animation: checkbox-on 0.3s forwards;
 }
 .checkbox input[type=checkbox]:not(:checked) + .checkbox-material:before {
   -webkit-animation: rippleOff 500ms;
-          animation: rippleOff 500ms;
+  animation: rippleOff 500ms;
 }
 .checkbox input[type=checkbox]:checked + .checkbox-material:before {
   -webkit-animation: rippleOn 500ms;
-          animation: rippleOn 500ms;
+  animation: rippleOn 500ms;
 }
 .checkbox input[type=checkbox]:not(:checked) + .checkbox-material .check:after {
   -webkit-animation: rippleOff 500ms forwards;
-          animation: rippleOff 500ms forwards;
+  animation: rippleOff 500ms forwards;
 }
 .checkbox input[type=checkbox]:checked + .checkbox-material .check:after {
   -webkit-animation: rippleOn 500ms forwards;
-          animation: rippleOn 500ms forwards;
+  animation: rippleOn 500ms forwards;
 }
 .checkbox input[type=checkbox][disabled]:not(:checked) ~ .checkbox-material .check:before,
 .checkbox input[type=checkbox][disabled] + .circle {
@@ -3957,8 +3957,8 @@ body .jumbotron-material-blue-grey,
 .checkbox input[type=checkbox][disabled] + .checkbox-material .check:after {
   background-color: rgba(0, 0, 0, 0.84);
   -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 .checkbox input[type=checkbox]:checked + .checkbox-material .check:after,
 .checkbox-default input[type=checkbox]:checked + .checkbox-material .check:after {
@@ -4246,7 +4246,7 @@ body .jumbotron-material-blue-grey,
   }
   50% {
     -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
+    transform: rotate(45deg);
     margin-top: -4px;
     margin-left: 6px;
     width: 0px;
@@ -4255,33 +4255,33 @@ body .jumbotron-material-blue-grey,
   }
   51% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
     margin-top: -2px;
     margin-left: -2px;
     width: 20px;
     height: 20px;
     box-shadow: 0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0px 0px 0 10px inset;
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0px 0px 0 10px inset;
   }
   100% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
     margin-top: -2px;
     margin-left: -2px;
     width: 20px;
     height: 20px;
     box-shadow: 0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0px 0px 0 0px inset;
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0px 0px 0 0px inset;
   }
 }
 @keyframes checkbox-off {
@@ -4293,7 +4293,7 @@ body .jumbotron-material-blue-grey,
   }
   50% {
     -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
+    transform: rotate(45deg);
     margin-top: -4px;
     margin-left: 6px;
     width: 0px;
@@ -4302,33 +4302,33 @@ body .jumbotron-material-blue-grey,
   }
   51% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
     margin-top: -2px;
     margin-left: -2px;
     width: 20px;
     height: 20px;
     box-shadow: 0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0px 0px 0 10px inset;
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0px 0px 0 10px inset;
   }
   100% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
     margin-top: -2px;
     margin-left: -2px;
     width: 20px;
     height: 20px;
     box-shadow: 0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0px 0px 0 0px inset;
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0 0 0 0,
+    0px 0px 0 0px inset;
   }
 }
 @-webkit-keyframes rippleOn {
@@ -4383,9 +4383,9 @@ body .jumbotron-material-blue-grey,
 .togglebutton input,
 .togglebutton .toggle {
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .togglebutton label {
   font-weight: 400;
@@ -4714,7 +4714,7 @@ body .jumbotron-material-blue-grey,
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.84);
   -webkit-transform: scale3d(0, 0, 0);
-          transform: scale3d(0, 0, 0);
+  transform: scale3d(0, 0, 0);
 }
 .radio label .check:after {
   display: block;
@@ -4730,15 +4730,15 @@ body .jumbotron-material-blue-grey,
   opacity: 0;
   margin: 0;
   -webkit-transform: scale3d(1.5, 1.5, 1);
-          transform: scale3d(1.5, 1.5, 1);
+  transform: scale3d(1.5, 1.5, 1);
 }
 .radio label input[type=radio]:not(:checked) ~ .check:after {
   -webkit-animation: rippleOff 500ms;
-          animation: rippleOff 500ms;
+  animation: rippleOff 500ms;
 }
 .radio label input[type=radio]:checked ~ .check:after {
   -webkit-animation: rippleOn 500ms;
-          animation: rippleOn 500ms;
+  animation: rippleOn 500ms;
 }
 .radio input[type=radio]:checked ~ .check,
 .radio-default input[type=radio]:checked ~ .check {
@@ -4922,7 +4922,7 @@ body .jumbotron-material-blue-grey,
 }
 .radio input[type=radio]:checked ~ .check {
   -webkit-transform: scale3d(0.55, 0.55, 1);
-          transform: scale3d(0.55, 0.55, 1);
+  transform: scale3d(0.55, 0.55, 1);
 }
 .radio input[type=radio][disabled] ~ .circle {
   border-color: rgba(0, 0, 0, 0.84);
@@ -5026,7 +5026,7 @@ fieldset[disabled] .form-control.focus:disabled,
   outline: none;
   background-image: linear-gradient(#009688, #009688), linear-gradient(#d2d2d2, #d2d2d2);
   -webkit-animation: input-highlight 0.5s forwards;
-          animation: input-highlight 0.5s forwards;
+  animation: input-highlight 0.5s forwards;
   box-shadow: none;
   background-size: 0 2px, 100% 1px;
 }
@@ -5715,34 +5715,41 @@ legend {
   background-color: transparent;
   color: inherit;
 }
+
 @media (max-width: 767px) {
   .navbar .navbar-nav .navbar-text {
     color: inherit;
     margin-top: 15px;
     margin-bottom: 15px;
   }
+
   .navbar .navbar-nav .open .dropdown-menu > .dropdown-header {
     border: 0;
     color: inherit;
   }
+
   .navbar .navbar-nav .open .dropdown-menu .divider {
     border-bottom: 1px solid;
     opacity: 0.08;
   }
+
   .navbar .navbar-nav .open .dropdown-menu > li > a {
     color: inherit;
   }
+
   .navbar .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar .navbar-nav .open .dropdown-menu > li > a:focus {
     color: inherit;
     background-color: transparent;
   }
+
   .navbar .navbar-nav .open .dropdown-menu > .active > a,
   .navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: inherit;
     background-color: transparent;
   }
+
   .navbar .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
@@ -6699,9 +6706,11 @@ fieldset[disabled] .navbar .btn-link:focus {
     height: 50px;
     padding: 10px 15px;
   }
+
   .navbar .navbar-form {
     margin-top: 10px;
   }
+
   .navbar .navbar-nav > li > a {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -7666,8 +7675,8 @@ hr.on-light {
   transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
   -webkit-transform: translateY(200%);
-      -ms-transform: translateY(200%);
-          transform: translateY(200%);
+  -ms-transform: translateY(200%);
+  transform: translateY(200%);
 }
 .snackbar.snackbar-opened {
   padding: 14px 15px;
@@ -7676,8 +7685,8 @@ hr.on-light {
   transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, height 0 linear 0.2s;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, height 0 linear 0.2s;
   -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
+  -ms-transform: none;
+  transform: none;
 }
 .snackbar.toast {
   border-radius: 200px;
@@ -7687,9 +7696,9 @@ hr.on-light {
   -webkit-touch-callout: none;
   -ms-touch-action: none;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   box-sizing: border-box;
 }
 .noUi-base {
@@ -7777,7 +7786,7 @@ hr.on-light {
 }
 .noUi-handle.noUi-active {
   -webkit-transform: scale3d(2.5, 2.5, 1);
-          transform: scale3d(2.5, 2.5, 1);
+  transform: scale3d(2.5, 2.5, 1);
 }
 [disabled].noUi-slider {
   opacity: 0.5;

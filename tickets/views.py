@@ -58,3 +58,13 @@ class ViewTicketView(View):
         context["ticket"] = get_object_or_404(Ticket, pk=ticket_id)
 
         return render(request, "tickets/view.html", context)
+
+
+class MyTicketsView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        context = {}
+
+        context["tickets"] = Ticket.objects.filter(creator=request.user).order_by('created_at').reverse()
+
+        return render(request, "tickets/tickets.html", context)

@@ -11,7 +11,7 @@
   background-image: none;
 }
 .btn-default {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   background-repeat: repeat-x;
   border-color: #bbbbbb;
   border-color: #ccc;
@@ -33,7 +33,7 @@
   background-image: none;
 }
 .btn-primary {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   background-repeat: repeat-x;
   border-color: #00aaaa;
 }
@@ -54,7 +54,7 @@
   background-image: none;
 }
 .btn-success {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   background-repeat: repeat-x;
   border-color: #00aa00;
 }
@@ -75,7 +75,7 @@
   background-image: none;
 }
 .btn-info {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   background-repeat: repeat-x;
   border-color: #000000;
 }
@@ -96,7 +96,7 @@
   background-image: none;
 }
 .btn-warning {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   background-repeat: repeat-x;
   border-color: #aa00aa;
 }
@@ -117,7 +117,7 @@
   background-image: none;
 }
 .btn-danger {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   background-repeat: repeat-x;
   border-color: #aa0000;
 }
@@ -147,10 +147,10 @@
   background-color: #aa5500;
 }
 .navbar-default {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .navbar-inverse {
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 @media (max-width: 768px) {
   .navbar .navbar-nav .open .dropdown-menu > .active > a,

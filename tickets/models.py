@@ -40,13 +40,18 @@ class SpecificItem(models.Model):
 
 
 class Ticket(models.Model):
+    ticket_types = (("PROBLEM", "Probleem Oplossen"),
+                    ("INSTALLATION", 'Instalatie'),
+                    ("MAINTENANCE", 'Onderhoud'))
+
+    ticket_type = models.CharField(max_length=255, choices=ticket_types, default='PROBLEM')
     creator = models.ForeignKey(User, related_name='creator')
     description = models.TextField(max_length=255)
     created_at = models.DateTimeField('creation date', auto_now_add=True)
     item = models.ForeignKey(SpecificItem)
     assigned = models.BooleanField(default=False)
     assigned_to = models.ForeignKey(User, related_name='assigned_to', null=True, blank=True)
-    assignment_date = models.DateField('assignment date', auto_now=True, null=True, blank=True)
+    assignment_date = models.DateField('assignment date', null=True, blank=True)
 
 
 class Part(models.Model):

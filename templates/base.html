@@ -29,6 +29,9 @@
             $.material.init();
         });
     </script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 </head>
 <body>
 
@@ -59,10 +62,14 @@
 
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
+                    <li><a href="{% url 'tickets:mytickets' %}">Mijn Tickets</a></li>
+                    {% if user.is_staff %}
+                        <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                    {% endif %}
                     <li><a href="{% url 'account:logout' %}">Logout</a></li>
                 {% else %}
                     {#                    <li><a href="{% url 'account:create' %}">Create account</a></li>#}
-                    <li><a href="#">Create account</a></li>
+                    <li><a href="{% url 'account:register' %}">Create account</a></li>
                     <li><a href="{% url 'account:login' %}"><i class="fa fa-child"></i> Log in</a></li>
                     {#                    <li><a href="#"><i class="fa fa-child"></i> Log in</a></li>#}
                 {% endif %}
