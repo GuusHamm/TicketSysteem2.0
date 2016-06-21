@@ -46,7 +46,7 @@ if (typeof jQuery === 'undefined') {
         }
 
         return false;
-         // explicit for ie8 (  ._.)
+        // explicit for ie8 (  ._.)
     }
 
     // http://blog.alexmaccaw.com/css-transitions
@@ -103,7 +103,7 @@ if (typeof jQuery === 'undefined') {
         if (!selector) {
             selector = $this.attr('href');
             selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '');
-             // strip for ie7
+            // strip for ie7
         }
 
         var $parent = $(selector);
@@ -205,8 +205,8 @@ if (typeof jQuery === 'undefined') {
             var $input = this.$element.find('input');
             if ($input.prop('type') == 'radio') {
                 if ($input.prop('checked') && this.$element.hasClass('active')) changed = false;
-            else
-                $parent.find('.active').removeClass('active')
+                else
+                    $parent.find('.active').removeClass('active')
             }
             if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
         } else {
@@ -225,8 +225,7 @@ if (typeof jQuery === 'undefined') {
             var options = typeof option == 'object' && option;
             if (!data) $this.data('bs.button', (data = new Button(this, options)));
             if (option == 'toggle') data.toggle();
-            else
-            if (option) data.setState(option)
+            else if (option) data.setState(option)
         })
     }
 
@@ -336,7 +335,7 @@ if (typeof jQuery === 'undefined') {
         if (this.sliding)       return this.$element.one('slid.bs.carousel', function () {
             that.to(pos)
         });
-         // yes, "slid"
+        // yes, "slid"
         if (activeIndex == pos) return this.pause().cycle();
         return this.slide(pos > activeIndex ? 'next' : 'prev', this.$items.eq(pos))
     };
@@ -381,11 +380,11 @@ if (typeof jQuery === 'undefined') {
         }
 
         var slidEvent = $.Event('slid.bs.carousel', {relatedTarget: relatedTarget, direction: direction});
-         // yes, "slid"
+        // yes, "slid"
         if ($.support.transition && this.$element.hasClass('slide')) {
             $next.addClass(type);
             $next[0].offsetWidth;
-             // force reflow
+            // force reflow
             $active.addClass(direction);
             $next.addClass(direction);
             $active
@@ -419,10 +418,8 @@ if (typeof jQuery === 'undefined') {
             var action = typeof option == 'string' ? option : options.slide;
             if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)));
             if (typeof option == 'number') data.to(option);
-            else
-            if (action) data[action]();
-            else
-            if (options.interval) data.pause().cycle()
+            else if (action) data[action]();
+            else if (options.interval) data.pause().cycle()
         })
     }
 
@@ -443,7 +440,7 @@ if (typeof jQuery === 'undefined') {
         var href;
         var $this = $(this);
         var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, ''));
-         // strip for ie7
+        // strip for ie7
         if (!$target.hasClass('carousel')) return;
         var options = $.extend({}, $target.data(), $this.data());
         var slideIndex = $this.attr('data-slide-to');
@@ -596,7 +593,7 @@ if (typeof jQuery === 'undefined') {
         var href;
         var target = $trigger.attr('data-target')
             || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '');
-         // strip for ie7
+        // strip for ie7
         return $(target)
     }
 
@@ -703,9 +700,9 @@ if (typeof jQuery === 'undefined') {
         if (!$items.length) return;
         var index = $items.index(e.target);
         if (e.which == 38 && index > 0)                 index--;
-                                // up
+        // up
         if (e.which == 40 && index < $items.length - 1) index++;
-                                // down
+        // down
         if (!~index)                                      index = 0;
         $items.eq(index).trigger('focus')
     };
@@ -729,7 +726,7 @@ if (typeof jQuery === 'undefined') {
         if (!selector) {
             selector = $this.attr('href');
             selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '');
-             // strip for ie7
+            // strip for ie7
         }
 
         var $parent = selector && $(selector);
@@ -839,7 +836,7 @@ if (typeof jQuery === 'undefined') {
             var transition = $.support.transition && that.$element.hasClass('fade');
             if (!that.$element.parent().length) {
                 that.$element.appendTo(that.$body);
-                 // don't move modals dom position
+                // don't move modals dom position
             }
 
             that.$element
@@ -848,7 +845,7 @@ if (typeof jQuery === 'undefined') {
             that.adjustDialog();
             if (transition) {
                 that.$element[0].offsetWidth;
-                 // force reflow
+                // force reflow
             }
 
             that.$element
@@ -943,7 +940,7 @@ if (typeof jQuery === 'undefined') {
                     : this.hide()
             }, this));
             if (doAnimate) this.$backdrop[0].offsetWidth;
-             // force reflow
+            // force reflow
             this.$backdrop.addClass('in');
             if (!callback) return;
             doAnimate ?
@@ -1021,8 +1018,7 @@ if (typeof jQuery === 'undefined') {
             var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option);
             if (!data) $this.data('bs.modal', (data = new Modal(this, options)));
             if (typeof option == 'string') data[option](_relatedTarget);
-            else
-            if (options.show) data.show(_relatedTarget)
+            else if (options.show) data.show(_relatedTarget)
         })
     }
 
@@ -1043,7 +1039,7 @@ if (typeof jQuery === 'undefined') {
         var $this = $(this);
         var href = $this.attr('href');
         var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, '')));
-         // strip for ie7
+        // strip for ie7
         var option = $target.data('bs.modal') ? 'toggle' : $.extend({remote: !/#/.test(href) && href}, $target.data(), $this.data());
         if ($this.is('a')) e.preventDefault();
         $target.one('show.bs.modal', function (showEvent) {
@@ -1274,7 +1270,7 @@ if (typeof jQuery === 'undefined') {
         var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight);
         if (delta.left) offset.left += delta.left;
         else
-        offset.top += delta.top;
+            offset.top += delta.top;
         var isVertical = /top|bottom/.test(placement);
         var arrowDelta = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight;
         var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight';
@@ -1296,6 +1292,7 @@ if (typeof jQuery === 'undefined') {
         var that = this;
         var $tip = $(this.$tip);
         var e = $.Event('hide.bs.' + this.type);
+
         function complete() {
             if (that.hoverState != 'in') $tip.detach();
             that.$element
@@ -1714,7 +1711,7 @@ if (typeof jQuery === 'undefined') {
         if (!selector) {
             selector = $this.attr('href');
             selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '');
-             // strip for ie7
+            // strip for ie7
         }
 
         if ($this.parent('li').hasClass('active')) return;
@@ -1746,6 +1743,7 @@ if (typeof jQuery === 'undefined') {
         var transition = callback
             && $.support.transition
             && (($active.length && $active.hasClass('fade')) || !!container.find('> .fade').length);
+
         function next() {
             $active
                 .removeClass('active')
@@ -1760,7 +1758,7 @@ if (typeof jQuery === 'undefined') {
                 .attr('aria-expanded', true);
             if (transition) {
                 element[0].offsetWidth;
-                 // reflow for transition
+                // reflow for transition
                 element.addClass('in')
             } else {
                 element.removeClass('fade')
