@@ -27,7 +27,7 @@ class Item(models.Model):
     vendor = models.ForeignKey(Vendor)
 
     def __str__(self):
-        return self.name
+        return "{}, {}".format(self.name, self.vendor.name)
 
 
 class SpecificItem(models.Model):
@@ -43,6 +43,7 @@ class Ticket(models.Model):
     ticket_types = (("PROBLEM", "Probleem Oplossen"),
                     ("INSTALLATION", 'Instalatie'),
                     ("MAINTENANCE", 'Onderhoud'))
+    ticket_statuses = (("OPEN", "Open"), ("IN PROGRESS", "In Behandeling"), ("CLOSED", "Gesloten"))
 
     ticket_type = models.CharField(max_length=255, choices=ticket_types, default='PROBLEM')
     creator = models.ForeignKey(User, related_name='creator')
@@ -52,6 +53,7 @@ class Ticket(models.Model):
     assigned = models.BooleanField(default=False)
     assigned_to = models.ForeignKey(User, related_name='assigned_to', null=True, blank=True)
     assignment_date = models.DateField('assignment date', null=True, blank=True)
+    status = models.CharField(max_length=255, choices=ticket_statuses, default="OPEN")
 
 
 class Part(models.Model):

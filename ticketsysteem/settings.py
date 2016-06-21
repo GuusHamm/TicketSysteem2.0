@@ -86,13 +86,13 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'ticketsystem',  # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'ticketsystem_user',
         'PASSWORD': '123Welkom',
         'HOST': '95.85.3.144',
-    # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+        # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
         'PORT': '5432',  # Set to empty string for default.
     }
 }

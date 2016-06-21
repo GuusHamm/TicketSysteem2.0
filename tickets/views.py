@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from tickets.forms import TicketForm
-from tickets.models import Ticket, SpecificItem
+from tickets.models import Ticket, SpecificItem, Item, Location
 
 
 class IndexView(View):
@@ -32,23 +32,33 @@ class NewTicketView(View):
 
         valid = form.is_valid()
         if valid:
-            ticket = Ticket(creator=request.user, description=form.cleaned_data['description'],
-                            item=SpecificItem.objects.get(id=form.data['item']))
 
-            ticket.save()
+            specific_item = SpecificItem.objects.filter(item=Item.objects.get(id=form.data['item']),
+                                                        location=Location.objects.get(id=form.data['location']))
+            if specific_item.count() > 0:
+                test = specific_item.first()
 
-            mail_body = 'Je hebt een ticket aangemaakt op het ticketsysteem \n' + \
-                        ' bekijk de vooruitgang van je ticket op ' + '' \
-                                                                     'ticketsysteem.guushamm.tech/tickets/view/{}'.format(
-                ticket.id)
+                ticket = Ticket(creator=request.user, description=form.cleaned_data['description'],
+                                item=test)
 
-            email = EmailMessage('Ticket#{} aangemaakt'.format(ticket.id), mail_body, to=[request.user.email])
-            email.send()
-            messages.success(request, "Ticket succesvol aangemaakt")
-            return redirect("tickets:view", ticket_id=ticket.id)
+                ticket.save()
+
+                mail_body = 'Je hebt een ticket aangemaakt op het ticketsysteem \n' + \
+                            ' bekijk de vooruitgang van je ticket op ' + '' \
+                                                                         'ticketsysteem.guushamm.tech/tickets/view/{}'.format(
+                    ticket.id)
+
+                email = EmailMessage('Ticket#{} aangemaakt'.format(ticket.id), mail_body, to=[request.user.email])
+                email.send()
+                messages.success(request, "Ticket succesvol aangemaakt")
+                return redirect("tickets:view", ticket_id=ticket.id)
+            else:
+                messages.info(request, "Het gekozen item bestaat niet op deze locatie")
+                return render(request, 'tickets/new.html', self.context)
+
         else:
             messages.warning(request, "Whoops het formulier is niet goed ingevuld")
-        return redirect("tickets:index")
+            return render(request, 'tickets/new.html', self.context)
 
 
 class ViewTicketView(View):
