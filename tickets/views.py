@@ -42,7 +42,7 @@ class NewTicketView(View):
                 test = specific_item.first()
 
                 ticket = Ticket(creator=request.user, description=form.cleaned_data['description'],
-                                item=test)
+                                item=test, title=form.cleaned_data['title'])
 
                 ticket.save()
 
