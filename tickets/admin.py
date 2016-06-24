@@ -5,8 +5,8 @@ from tickets.models import *
 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('id', 'creator', 'description', 'assigned_to')
-    list_filter = ('assigned', 'created_at')
+    list_display = ('id', 'item', 'title', 'creator', 'assigned_to', 'created_at')
+    list_filter = ('status', 'assigned', 'created_at')
 
 
 admin.site.register(Ticket, TicketAdmin)

@@ -1,10 +1,13 @@
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
+from django.core.mail import EmailMessage
 from django.db import models
 
-
 # Create your models here.
+from django.db.models import Q
+
+
 class Location(models.Model):
     location = models.CharField(max_length=255)
 
@@ -42,11 +45,13 @@ class SpecificItem(models.Model):
 class Ticket(models.Model):
     ticket_types = (("PROBLEM", "Probleem Oplossen"),
                     ("INSTALLATION", 'Instalatie'),
-                    ("MAINTENANCE", 'Onderhoud'))
+                    ("MAINTENANCE", 'Onderhoud'),
+                    ("REINSTALL", "Herinstallatie"))
     ticket_statuses = (("OPEN", "Open"), ("IN PROGRESS", "In Behandeling"), ("CLOSED", "Gesloten"))
 
     ticket_type = models.CharField(max_length=255, choices=ticket_types, default='PROBLEM')
     creator = models.ForeignKey(User, related_name='creator')
+    title = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
     created_at = models.DateTimeField('creation date', auto_now_add=True)
     item = models.ForeignKey(SpecificItem)
@@ -54,6 +59,25 @@ class Ticket(models.Model):
     assigned_to = models.ForeignKey(User, related_name='assigned_to', null=True, blank=True)
     assignment_date = models.DateField('assignment date', null=True, blank=True)
     status = models.CharField(max_length=255, choices=ticket_statuses, default="OPEN")
+
+    def user_is_allowed_to_view(self, user):
+        if self.creator == user or self.assigned_to == user or user.is_staff:
+            return True
+        else:
+            return False
+
+    def send_mail_users(self):
+        permission = Permission.objects.get(codename='tickets.change_ticket')
+        users = User.objects.filter((Q(groups__permissions=permission) | Q(user_permissions=permission)).distinct())
+
+        for user in users:
+            mail_body = 'Er is een ticket gemaakt: {}, {}, {} '.format(self.title, self.item, self.creator)
+
+            email = EmailMessage('Ticket#{} aangemaakt'.format(self.id), mail_body, to=[user.email])
+            email.send()
+
+    class Meta:
+        default_permissions = ('add', 'change', 'delete', 'view')
 
 
 class Part(models.Model):

@@ -3,4 +3,17 @@
     <div class="well">
         <h1 class="text-uppercase text-center">Welkom bij het ticketsysteem</h1>
     </div>
+    <div class="panel">
+        <div class="panel-body">
+            <div class="list-group text-center">
+                <div class="list-group-item col-lg-6">
+                    <p>Er zijn momenteel {{ number_of_tickets }} tickets in het ticketsysteem</p>
+                </div>
+                <div class="list-group-item col-lg-6">
+                    <p>Er zijn momenteel {{ number_of_open_tickets }} geopende tickets in het ticketsysteem</p>
+                </div>
+            </div>
+            <p></p>
+        </div>
+    </div>
 {% endblock %}

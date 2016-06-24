@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import *
+from tickets.views import IndexView, MyTicketsView, ViewTicketView, NewTicketView
 
 urlpatterns = [
     url(r"^new/", NewTicketView.as_view(), name="new"),

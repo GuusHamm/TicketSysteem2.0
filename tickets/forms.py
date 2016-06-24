@@ -3,7 +3,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit
 from django import forms
 
-from tickets.models import Item, Location
+from tickets.models import Location, Item
 
 
 class TicketForm(forms.Form):
@@ -12,6 +12,7 @@ class TicketForm(forms.Form):
                     ("MAINTENANCE", 'Onderhoud'))
 
     type = forms.ChoiceField(choices=ticket_types)
+    title = forms.CharField(max_length=255)
     description = forms.CharField(widget=forms.Textarea(), max_length=255)
     item = forms.ModelChoiceField(queryset=Item.objects.all())
     location = forms.ModelChoiceField(queryset=Location.objects.all())
@@ -28,6 +29,7 @@ class TicketForm(forms.Form):
 
         self.helper.layout = Layout(
             Field("type"),
+            Field("title", placeholder="Bijvoorbeeld: computer start niet op"),
             Field("description"),
             Field("item"),
             Field("location"),
