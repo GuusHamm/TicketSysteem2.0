@@ -30,7 +30,7 @@ ADMINS = [('Guus', 'guushamm@gmail.com')]
 
 MANAGERS = [('Guus', 'guushamm@gmail.com'), ('Dennis', 'schmittden@mediamarkt.nl'), ('Erik', 'BrantE@phonehouse.nl')]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
