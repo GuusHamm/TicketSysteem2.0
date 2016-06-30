@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, mail_managers
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -51,12 +51,12 @@ class NewTicketView(View):
                                                                          'ticketsysteem.guushamm.tech/tickets/view/{}'.format(
                     ticket.id)
 
-                email = EmailMessage('Ticket#{} aangemaakt'.format(ticket.id), mail_body, to=[request.user.email])
+                mail_subject = 'Ticket#{} aangemaakt'.format(ticket.id)
+
+                email = EmailMessage(mail_subject, mail_body, to=[request.user.email])
                 email.send()
 
-                # print(request.user.get_all_permissions())
-                #
-                # ticket.send_mail_users()
+                # mail_managers(mail_subject,  'Er is een ticket gemaakt: {}, {}, {} '.format(ticket.title, ticket.item, ticket.creator))
 
                 messages.success(request, "Ticket succesvol aangemaakt")
                 return redirect("tickets:view", ticket_id=ticket.id)

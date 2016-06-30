@@ -32,7 +32,7 @@ class LoginView(View):
                     messages.success(request, "Succesvol ingelogd")
                     return redirect("tickets:index")
                 else:
-                    messages.error(request, "Deze account is niet geactiveerd")
+                    messages.error(request, "Deze account is nog niet geactiveerd")
                     return self.get(request)
             else:
                 messages.warning(request, "Gebruikersnaam of wachtwoord klopt niet")
@@ -62,22 +62,19 @@ class CreateNewAccountView(View):
             email = registerform.cleaned_data['email']
             password = registerform.cleaned_data['password']
             password_conf = registerform.cleaned_data['password_repeat']
+            first_name = registerform.cleaned_data['first_name']
+            last_name = registerform.cleaned_data['last_name']
 
             if password != password_conf:
                 messages.error(request, "De wachtwoorden kwamen niet overeen")
                 return self.get(request)
 
-            User.objects._create_user(username=username, password=password, email=email, is_staff=False,
-                                      is_superuser=False)
+            User.objects.create_user(username=username, password=password, email=email, first_name=first_name,
+                                     last_name=last_name, is_staff=False, is_superuser=False, is_active=False)
 
             user = User.objects.get(username=username)
 
-            user.first_name = registerform.cleaned_data['first_name']
-            user.last_name = registerform.cleaned_data['last_name']
-
-            user.save()
-
-            if user.pk != None:
+            if user.pk is not None:
                 messages.success(request, "Account aangemaakt!")
             else:
                 messages.error(request, "Account niet aangemaakt")

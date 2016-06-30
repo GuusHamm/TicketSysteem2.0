@@ -1,11 +1,14 @@
 from __future__ import unicode_literals
 
+from datetime import datetime
+
 from django.contrib.auth.models import User, Permission
-from django.core.mail import EmailMessage
+from django.core.mail import mail_managers
 from django.db import models
 
 # Create your models here.
-from django.db.models import Q
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Location(models.Model):
@@ -66,18 +69,20 @@ class Ticket(models.Model):
         else:
             return False
 
-    def send_mail_users(self):
-        permission = Permission.objects.get(codename='tickets.change_ticket')
-        users = User.objects.filter((Q(groups__permissions=permission) | Q(user_permissions=permission)).distinct())
-
-        for user in users:
-            mail_body = 'Er is een ticket gemaakt: {}, {}, {} '.format(self.title, self.item, self.creator)
-
-            email = EmailMessage('Ticket#{} aangemaakt'.format(self.id), mail_body, to=[user.email])
-            email.send()
-
     class Meta:
         default_permissions = ('add', 'change', 'delete', 'view')
+
+
+@receiver(post_save, sender=Ticket)
+def ticket_handler(instance, created, **kwargs):
+    if created:
+        mail_managers('Ticket #{} aangemaakt'.format(instance.id),
+                      'Er is een ticket gemaakt: {}, {}, {} '.format(instance.title, instance.item, instance.creator))
+    else:
+        if instance.assigned_to is not None and (not instance.assigned or not instance.assignment_date):
+            instance.assigned = True
+            instance.assignment_date = datetime.now()
+            instance.save()
 
 
 class Part(models.Model):
