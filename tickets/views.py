@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import EmailMessage, mail_managers
+from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -87,6 +87,11 @@ class MyTicketsView(View):
     def get(self, request):
         context = {}
 
-        context["tickets"] = Ticket.objects.filter(creator=request.user).order_by('created_at').reverse()
+        if request.user.is_superuser:
+            context["tickets"] = Ticket.objects.all().exclude(status="CLOSED").order_by('created_at').reverse()
+        elif request.user.is_staff:
+            context["tickets"] = Ticket.objects.filter(assigned_to=request.user).order_by('created_at').reverse()
+        else:
+            context["tickets"] = Ticket.objects.filter(creator=request.user).order_by('created_at').reverse()
 
         return render(request, "tickets/tickets.html", context)
