@@ -2,3 +2,4 @@ Django
 django-debug-toolbar
 django-crispy-forms
 psycopg2
+django_stackoverflow_trace

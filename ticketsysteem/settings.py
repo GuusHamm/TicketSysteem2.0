@@ -28,7 +28,10 @@ DEBUG = False
 
 ADMINS = [('Guus', 'guushamm@gmail.com')]
 
-MANAGERS = [('Guus', 'guushamm@gmail.com'), ('Dennis', 'schmittden@mediamarkt.nl'), ('Erik', 'BrantE@phonehouse.nl')]
+if DEBUG:
+    MANAGERS = []
+else:
+    MANAGERS = [('Guus', 'guushamm@gmail.com'), ('Dennis', 'schmittden@mediamarkt.nl'), ('Erik', 'BrantE@phonehouse.nl')]
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -58,6 +61,10 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if DEBUG:
+    MIDDLEWARE_CLASSES += ('django_stackoverflow_trace.DjangoStackoverTraceMiddleware', )
+
+
 ROOT_URLCONF = 'ticketsysteem.urls'
 
 TEMPLATES = [
@@ -73,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request',
             ],
         },
     },

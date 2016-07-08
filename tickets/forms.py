@@ -2,6 +2,7 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit
 from django import forms
+from django.contrib.auth.models import User
 
 from tickets.models import Location, Item
 
@@ -36,5 +37,27 @@ class TicketForm(forms.Form):
 
             FormActions(
                 Submit('post', 'Post', css_class=" btn-danger btn-block"),
+            )
+        )
+
+
+class ClaimSelectUserForm(forms.Form):
+    user = forms.ModelChoiceField(queryset=User.objects.filter(is_staff=True), label="Kies een gebruiker")
+
+    def __init__(self, *args, **kwargs):
+        super(ClaimSelectUserForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+
+        self.helper.form_class = 'form-horizontal'
+
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col-lg-8'
+
+        self.helper.layout = Layout(
+            Field("user"),
+
+            FormActions(
+                Submit('select_user', 'Kies gebruiker', css_class=" btn-danger btn-block"),
             )
         )
