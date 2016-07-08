@@ -36,7 +36,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
 </head>
-<body background="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fimages.psxextreme.com%2Fwallpapers%2Fps3%2Fcity_by_the_bay_1232.jpg&f=1">
+<body background="{% static 'images/background.jpg' %}">
 
 <nav class="navbar navbar-danger">
     <div class="container-fluid">
@@ -65,7 +65,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'tickets:mytickets' %}">Mijn Tickets</a></li>
+                    <li><a href="{% url 'tickets:my_tickets' %}">Mijn Tickets</a></li>
                     {% if user.is_staff %}
                         <li><a href="{% url 'admin:index' %}">Admin</a></li>
                     {% endif %}

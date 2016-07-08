@@ -2,8 +2,11 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 
+from django.utils import timezone
+
+from django.conf import settings
 from django.contrib.auth.models import User, Permission
-from django.core.mail import mail_managers
+from django.core.mail import mail_managers, EmailMessage
 from django.db import models
 
 # Create your models here.
@@ -57,11 +60,25 @@ class Ticket(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
     created_at = models.DateTimeField('creation date', auto_now_add=True)
+    # closed_at = models.DateTimeField('close date', null=True, blank=True)
     item = models.ForeignKey(SpecificItem)
     assigned = models.BooleanField(default=False)
     assigned_to = models.ForeignKey(User, related_name='assigned_to', null=True, blank=True)
     assignment_date = models.DateField('assignment date', null=True, blank=True)
     status = models.CharField(max_length=255, choices=ticket_statuses, default="OPEN")
+
+    def time_open(self):
+        if self.status != 'CLOSED':
+            diff = timezone.now() - self.created_at
+
+            suffix = ' dag'
+
+            if diff.days > 1:
+                suffix = ' dagen'
+            return diff.days.__str__() + suffix
+
+        else:
+            return '-'
 
     def user_is_allowed_to_view(self, user):
         if self.creator == user or self.assigned_to == user or user.is_staff:
@@ -82,6 +99,21 @@ def ticket_handler(instance, created, **kwargs):
         if instance.assigned_to is not None and (not instance.assigned or not instance.assignment_date):
             instance.assigned = True
             instance.assignment_date = datetime.now()
+
+            if not settings.debug:
+                email = EmailMessage("{} is toegewezen aan je ticket".format(instance.assigned_to.first_name),
+                                     "{} is toegewezen aan je ticket".format(instance.assigned_to.first_name),
+                                     to=[instance.creator.email])
+                email.send()
+
+                email = EmailMessage("Je bent toegewezen aan ticket #{}".format(instance.id),
+                                     "Je bent toegewezen aan ticket #{}\n\n" +
+                                     "Bekijk de ticket op ticketsysteem.guushamm.tech/tickets/view/{}".format(
+                                         instance.id,
+                                         instance.id),
+                                     to=[instance.assigned_to.email])
+                email.send()
+
             instance.save()
 
 
