@@ -4,7 +4,6 @@ from datetime import datetime
 
 from django.utils import timezone
 
-from django.conf import settings
 from django.contrib.auth.models import User, Permission
 from django.core.mail import mail_managers, EmailMessage
 from django.db import models
@@ -13,8 +12,13 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from ticketsysteem import settings
+
 
 class Location(models.Model):
+    """
+    Stores a location i.e. Service Desk
+    """
     location = models.CharField(max_length=255)
 
     def __str__(self):
@@ -22,6 +26,9 @@ class Location(models.Model):
 
 
 class Vendor(models.Model):
+    """
+    Stores a vendor i.e. Fujitsu
+    """
     name = models.CharField(max_length=255)
     vendor_id = models.CharField(max_length=255)
 
@@ -29,7 +36,42 @@ class Vendor(models.Model):
         return self.name
 
 
+class Part(models.Model):
+    """
+    Stores a part,  i.e. Fujitsu Printer Cartridge.
+    Related to :model:`tickets.Vendor`
+    """
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=255)
+
+    vendor = models.ForeignKey(Vendor)
+    supplier = models.CharField(max_length=255)
+    indicated_price = models.DecimalField
+
+    def __str__(self):
+        return self.name
+
+
+class ServiceContract(models.Model):
+    """
+   Stores a service contract,  i.e. Fujitsu Printer Service Contract.
+   Related to :model:`tickets.Item`
+   """
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=255)
+    internal_id = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    expiry_date = models.DateField('expiry date', auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Item(models.Model):
+    """
+    Stores a item,  i.e. Fujitsu Desktop Computer.
+    Related to :model:`tickets.Vendor`
+    """
     name = models.TextField(max_length=255)
 
     description = models.TextField(max_length=255)
@@ -40,6 +82,10 @@ class Item(models.Model):
 
 
 class SpecificItem(models.Model):
+    """
+    Is a specific item at a department, i.e. a Fujitsu Desktop Computer at the Service Desk.
+    Related to :model:`tickets.Item` and :model:`tickets.Location`
+    """
     item = models.ForeignKey(Item)
     location = models.ForeignKey(Location)
     internal_id = models.CharField(max_length=255)
@@ -49,6 +95,12 @@ class SpecificItem(models.Model):
 
 
 class Ticket(models.Model):
+    """
+   Is a Ticket i.e. my computer is not booting.
+   Has a type describing what kind of ticket it is.
+   Has a status describing what the status of the ticket is.
+   Related to :model:`tickets.SpecificItem` and :model:`auth.User`
+   """
     ticket_types = (("PROBLEM", "Probleem Oplossen"),
                     ("INSTALLATION", 'Instalatie'),
                     ("MAINTENANCE", 'Onderhoud'),
@@ -60,27 +112,33 @@ class Ticket(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
     created_at = models.DateTimeField('creation date', auto_now_add=True)
-    # closed_at = models.DateTimeField('close date', null=True, blank=True)
     item = models.ForeignKey(SpecificItem)
     assigned = models.BooleanField(default=False)
     assigned_to = models.ForeignKey(User, related_name='assigned_to', null=True, blank=True)
     assignment_date = models.DateField('assignment date', null=True, blank=True)
+    service_contract = models.ForeignKey(ServiceContract, null=True, blank=True)
+    parts = models.ForeignKey(Part, null=True, blank=True)
     status = models.CharField(max_length=255, choices=ticket_statuses, default="OPEN")
+    closed_at = models.DateTimeField('close date', null=True, blank=True)
 
     def time_open(self):
+        """ Calculates the time a ticket has been open """
+        diff = 0
+
         if self.status != 'CLOSED':
             diff = timezone.now() - self.created_at
+        else:
+            diff = self.closed_at - self.created_at
 
+        suffix = ' dagen'
+
+        if diff.days == 1:
             suffix = ' dag'
 
-            if diff.days > 1:
-                suffix = ' dagen'
-            return diff.days.__str__() + suffix
-
-        else:
-            return '-'
+        return diff.days.__str__() + suffix
 
     def user_is_allowed_to_view(self, user):
+        """ Checks whether a user is allowed to view the ticket i.e. user is creator, assignee or staff """
         if self.creator == user or self.assigned_to == user or user.is_staff:
             return True
         else:
@@ -100,7 +158,7 @@ def ticket_handler(instance, created, **kwargs):
             instance.assigned = True
             instance.assignment_date = datetime.now()
 
-            if not settings.debug:
+            if not settings.DEBUG:
                 email = EmailMessage("{} is toegewezen aan je ticket".format(instance.assigned_to.first_name),
                                      "{} is toegewezen aan je ticket".format(instance.assigned_to.first_name),
                                      to=[instance.creator.email])
@@ -115,26 +173,3 @@ def ticket_handler(instance, created, **kwargs):
                 email.send()
 
             instance.save()
-
-
-class Part(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(max_length=255)
-
-    vendor = models.ForeignKey(Vendor)
-    supplier = models.CharField(max_length=255)
-    indicated_price = models.DecimalField
-
-    def __str__(self):
-        return self.name
-
-
-class ServiceContract(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(max_length=255)
-    internal_id = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=255)
-    expiry_date = models.DateField('expiry date', auto_now=True)
-
-    def __str__(self):
-        return self.name

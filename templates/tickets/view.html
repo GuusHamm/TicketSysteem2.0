@@ -55,4 +55,37 @@
             {% endif %}
         </div>
     </div>
+    <div class="well well-lg">
+        {% if ticket.status == "CLOSED" %}
+            <div class="list-group-item list-group-item-danger">
+                <div class="list-group-item-heading">
+                    <h4>Ticket Closed</h4>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if ticket.assigned %}
+            <div class="list-group-item">
+                <div class="list-group-item-heading">
+                    <h4>{{ ticket.assigned_to.first_name }} {{ ticket.assigned_to.last_name }}, {{ ticket.assignment_date }}</h4>
+                </div>
+                <div class="list-group-item-text">
+                    <p>
+                        {{ ticket.assigned_to.first_name }} is geassigned aan deze ticket.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="list-group-item">
+            <div class="list-group-item-heading">
+                <h4>{{ ticket.creator.first_name }} {{ ticket.creator.last_name }}, {{ ticket.created_at }}</h4>
+            </div>
+            <div class="list-group-item-text">
+                <p>
+                    {{ ticket.creator.first_name }} heeft deze ticket gemaakt.
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -19,6 +19,7 @@ from django.contrib import admin
 from tickets.views import IndexView
 
 urlpatterns = [
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include("accounts.urls", namespace="account")),
     url(r'^tickets/', include("tickets.urls", namespace="tickets")),
