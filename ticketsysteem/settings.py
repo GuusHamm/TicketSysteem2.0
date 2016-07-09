@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'debug_toolbar',
+    'django.contrib.admindocs',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -59,6 +60,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.admindocs.middleware.XViewMiddleware',
 ]
 
 if DEBUG:
