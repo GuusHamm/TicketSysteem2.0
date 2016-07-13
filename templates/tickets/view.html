@@ -3,14 +3,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="panel panel-default">
+    <div class="panel panel-danger">
         <div class="panel-heading">
             <h3 class="text-uppercase text-center">Ticket #{{ ticket.id }}</h3>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="panel">
+                    <div class="panel panel-danger">
                         <div class="panel-heading">
                             Titel:
                         </div>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="panel">
+                    <div class="panel panel-danger">
                         <div class="panel-heading">
                             Beschrijving:
                         </div>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="panel">
+                    <div class="panel panel-danger">
                         <div class="panel-heading">
                             Assigned?:
                         </div>
@@ -45,15 +45,14 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="panel-footer">
-            {% if user.is_superuser %}
-                {% crispy form %}
-            {% elif user.is_staff %}
-                <a href="{% url 'tickets:claim' ticket.id %}" class="btn btn-danger btn-sm">Claim ticket</a>
-            {% endif %}
-        </div>
+    </div>
+    <div class="well well-lg">
+        {% if user.is_superuser %}
+            {% crispy form %}
+        {% elif user.is_staff %}
+            <a href="{% url 'tickets:claim' ticket.id %}" class="btn btn-danger btn-sm">Claim ticket</a>
+        {% endif %}
     </div>
     <div class="well well-lg">
         {% if ticket.status == "CLOSED" %}
