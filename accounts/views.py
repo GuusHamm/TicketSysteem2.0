@@ -30,7 +30,10 @@ class LoginView(View):
                 if user.is_active:
                     login(request, user)
                     messages.success(request, "Succesvol ingelogd")
-                    return redirect("tickets:index")
+                    if user.is_staff:
+                        return redirect("admin:index")
+                    else:
+                        return redirect("tickets:index")
                 else:
                     messages.error(request, "Deze account is nog niet geactiveerd")
                     return self.get(request)
