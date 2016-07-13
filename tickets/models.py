@@ -2,11 +2,10 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 
-from django.utils import timezone
-
 from django.contrib.auth.models import User, Permission
 from django.core.mail import mail_managers, EmailMessage
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 from django.db.models.signals import post_save
@@ -36,22 +35,6 @@ class Vendor(models.Model):
         return self.name
 
 
-class Part(models.Model):
-    """
-    Stores a part,  i.e. Fujitsu Printer Cartridge.
-    Related to :model:`tickets.Vendor`
-    """
-    name = models.CharField(max_length=255)
-    description = models.TextField(max_length=255)
-
-    vendor = models.ForeignKey(Vendor)
-    supplier = models.CharField(max_length=255)
-    indicated_price = models.DecimalField
-
-    def __str__(self):
-        return self.name
-
-
 class ServiceContract(models.Model):
     """
    Stores a service contract,  i.e. Fujitsu Printer Service Contract.
@@ -76,9 +59,27 @@ class Item(models.Model):
 
     description = models.TextField(max_length=255)
     vendor = models.ForeignKey(Vendor)
+    service_contract = models.ForeignKey(ServiceContract, null=True, blank=True)
 
     def __str__(self):
         return "{}, {}".format(self.name, self.vendor.name)
+
+
+class Part(models.Model):
+    """
+    Stores a part,  i.e. Fujitsu Printer Cartridge.
+    Related to :model:`tickets.Vendor`
+    """
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=255)
+    item = models.ForeignKey(Item)
+
+    vendor = models.ForeignKey(Vendor)
+    supplier = models.CharField(max_length=255)
+    indicated_price = models.DecimalField
+
+    def __str__(self):
+        return self.name
 
 
 class SpecificItem(models.Model):
@@ -115,9 +116,7 @@ class Ticket(models.Model):
     item = models.ForeignKey(SpecificItem)
     assigned = models.BooleanField(default=False)
     assigned_to = models.ForeignKey(User, related_name='assigned_to', null=True, blank=True)
-    assignment_date = models.DateField('assignment date', null=True, blank=True)
-    service_contract = models.ForeignKey(ServiceContract, null=True, blank=True)
-    parts = models.ForeignKey(Part, null=True, blank=True)
+    assignment_date = models.DateTimeField('assignment date', null=True, blank=True)
     status = models.CharField(max_length=255, choices=ticket_statuses, default="OPEN")
     closed_at = models.DateTimeField('close date', null=True, blank=True)
 
