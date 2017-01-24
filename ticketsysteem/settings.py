@@ -26,14 +26,14 @@ SECRET_KEY = 'y0h2+&a!+gdz1j10a&+^2b8n4*t%ngu-#ksqd(!i#=hv_3l(xr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ADMINS = [('Guus', 'guushamm@gmail.com')]
+#ADMINS = [('Guus', 'guushamm@gmail.com')]
 
 if DEBUG:
     MANAGERS = []
 else:
     MANAGERS = [('Guus', 'guushamm@gmail.com'), ('Dennis', 'schmittden@mediamarkt.nl'), ('Erik', 'BrantE@phonehouse.nl')]
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['ticketsysteem.guushamm.nl']
 
 # Application definition
 
@@ -61,6 +61,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 if DEBUG:
@@ -82,7 +83,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.request',
             ],
         },
     },
@@ -94,20 +94,9 @@ WSGI_APPLICATION = 'ticketsysteem.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'ticketsystem',  # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': 'ticketsystem_user',
-        'PASSWORD': '123Welkom',
-        'HOST': '95.85.3.144',
-        # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',  # Set to empty string for default.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
